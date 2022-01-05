@@ -5,7 +5,7 @@
 (define build-deps '("scribble-lib" "racket-doc" "rackunit-lib"))
 (define scribblings '(("scribblings/umask.scrbl" () (library))))
 (define pkg-desc "Description Here")
-(define version "0.1")
+(define version "0.2")
 (define pkg-authors '("Winston Weinert"))
 (define license '(MIT))
 (define pkg-info "umask (file creation mask) utilities")
