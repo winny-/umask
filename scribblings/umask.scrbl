@@ -17,10 +17,13 @@ Predicate to determine if a value can be used passed into the @racket[umask]
 procedure.
 }
 
-@defproc[(umask [mask (or #f valid-umask?)]) (or void valid-umask?)]{
+@defproc[(umask [mask valid-umask?]) (or void valid-umask?)]{
 
-Behaves like the unix @hyperlink["https://en.wikipedia.org/wiki/Umask"]{umask(2)} system call.  If @racket[mask] is @racket[#f],
-then this procedure gets the current umask (file mode creation mask).  Otherwise set the current umask to the value of @racket[mask] and returns @racket[(void)].
+Behaves like the unix
+@hyperlink["https://en.wikipedia.org/wiki/Umask"]{umask(2)} system call.  If
+invoked with no arguments, this procedure returns the current umask (file mode
+creation mask).  If invoked with argument @racket[mask], set the current umask
+to the value of @racket[mask] and returns @racket[(void)].
 
 }
 
@@ -39,10 +42,20 @@ readable by the current user.
 (with-umask #o077
   (define temporary-file (make-temporary-file))
   (define secret (read-line))
-  ;; Save text to a file that only the current user may read.
   (printf "Secret saved to ~a.\n" temporary-file)
   (with-output-to-file temporary-file (thunk (displayln secret))))
 }|
+
+
+Get the umask
+
+@codeblock|{
+(umask)
+}|
+
+Set the umask so subsequently files are only readable as the current user (and root).
+
+@codeblock|{(umask #o077)}|
 
 @section{Project Information}
 

@@ -30,18 +30,11 @@
      (libc-umask mask)
      (void)]))
 
-#|
-Usage:
-(with-umask #0o077
-  (define temporary-file (make-temporary-file))
-  ;; Do something with a temporary file that only your user can read.
-  )
-|#
 (define-syntax-rule (with-umask new-umask body body-rest ...)
   (if (valid-umask? new-umask)
       (let ([old-umask (libc-umask new-umask)])
         (begin0
-            (begin
+            (let ()
               body
               body-rest ...)
           (umask old-umask)))
