@@ -16,9 +16,7 @@ jobs:
           distribution: full
           variant: ${{ matrix.racket-variant }}
           version: ${{ matrix.racket-version }}
-      - name: Installing umask and its dependencies
-        run: raco pkg install --no-docs --auto --name umask
-      - name: Compiling umask and building its docs
-        run: raco setup --check-pkg-deps --unused-pkg-deps umask
-      - name: Testing umask
-        run: raco test -x -p umask
+      - name: install
+        run: raco pkg install --auto --link umask-{doc,lib,test}
+      - name: test
+        run: raco test -e -p umask-{test,lib,doc}

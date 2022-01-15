@@ -1,6 +1,6 @@
 #lang racket
 
-(require "main.rkt"
+(require umask
          rackunit
          rackunit/docs-complete)
 
