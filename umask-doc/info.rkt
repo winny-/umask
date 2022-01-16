@@ -1,5 +1,8 @@
 #lang info
 (define collection 'multi)
-;; TODO split tests out into own package.
+(define version "1.1")
 (define deps '())
-(define build-deps '("scribble-lib" "racket-doc" "umask-lib"))
+(define build-deps '("base"
+                     "scribble-lib"
+                     "racket-doc"
+                     "umask-lib"))
