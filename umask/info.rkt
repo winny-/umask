@@ -3,5 +3,5 @@
 (define deps '("umask-doc"
                "umask-lib"))
 (define build-deps '())
-(define version "1.1")
+(define version "1.2")
 (define implies deps)
