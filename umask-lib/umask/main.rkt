@@ -1,6 +1,7 @@
 #lang racket/base
 
 (require racket/contract/base
+         racket/function
          (rename-in ffi/unsafe [-> ffi->])
          ffi/unsafe/define)
 
@@ -13,7 +14,8 @@
                                           void?
                                           valid-umask?))])]
                        [valid-umask? (-> any/c boolean?)])
-         with-umask)
+         with-umask
+         libc-umask)
 
 (define-ffi-definer define-libc (ffi-lib "libc" "6"))
 (define-libc libc-umask (_fun _uint32 ffi-> _uint32) #:c-id umask)
@@ -33,10 +35,6 @@
 (define-syntax-rule (with-umask new-umask body body-rest ...)
   (if (valid-umask? new-umask)
       (let ([old-umask (libc-umask new-umask)])
-        (begin0
-            (let ()
-              body
-              body-rest ...)
-          (umask old-umask)))
+        (dynamic-wind void (thunk body body-rest ...) (thunk (umask old-umask))))
       (raise-arguments-error 'with-umask "A umask value should be between 0 and #o777 inclusive" "new-umask" new-umask)))
 

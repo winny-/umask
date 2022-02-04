@@ -43,7 +43,14 @@
   (umask #o222)
   (with-umask #o124
     (void))
-  (check-equal? (umask) #o222))
+  (check-equal? (libc-umask 0) #o222))
+
+(test-case "with-umask restores umask on exception"
+  (umask #o111)
+  (with-handlers ([exn? void])
+    (with-umask #o521
+      (error 'weee)))
+  (check-equal? (libc-umask 0) #o111))
 
 (test-equal?
  "with-umask return value"
@@ -55,3 +62,10 @@
     v)
   (check-true #t))
 
+(test-case "umask works across threads"
+  (umask #o765)
+  (thread-wait
+   (thread
+    (thunk
+     (umask #o234))))
+  (check-equal? (libc-umask 0) #o765))
