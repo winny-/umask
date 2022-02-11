@@ -17,7 +17,8 @@ Predicate to determine if a value can be used passed into the @racket[umask]
 procedure.
 }
 
-@defproc[(umask [mask valid-umask?]) (or void valid-umask?)]{
+@defproc*[([(umask) valid-umask?]
+           [(umask [mask valid-umask?]) void?])]{
 
 Behaves like the unix
 @hyperlink["https://en.wikipedia.org/wiki/Umask"]{umask(2)} system call.  If
@@ -62,4 +63,15 @@ Set the umask so subsequently files are only readable as the current user (and r
 @itemlist[
  @item{MIT/X Licensed}
  @item{@hyperlink["https://github.com/winny-/umask"]{Source code on GitHub}}
+ @item{@hyperlink["https://racket.discourse.group/t/umask-set-default-file-permissions/613"]{Announcement and library discussion on the Racket Discourse}}
 ]
+
+@section{Tested Platforms}
+
+@itemlist[
+  @item{Gentoo GNU/Linux using glibc 2.33, Racket 8.3 from Portage}
+  @item{Alpine Linux using musl 1.2.2, Racket 7.7 packaged by Alpine}
+  @item{Mac OS X Big Sur, Racket 8.3 from Homebrew}
+]
+
+Windows is not supported because @hyperlink["https://www.reddit.com/r/sysadmin/comments/5fm9lg/windows_equivalent_of_umask/"]{umask semantics are not available on Windows}.
