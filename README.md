@@ -8,3 +8,8 @@ Umask library for Racket.
 ```bash
 raco pkg install umask
 ```
+
+Caveats
+-------
+
+Does not work with `copy-file` because it defeats umask semantics.

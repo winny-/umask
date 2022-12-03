@@ -34,6 +34,10 @@ Temporarily set the umask to @racketid[umask-expr] when evaluating @racketid[bod
 
 }
 
+@section{Caveats}
+
+@racket[copy-file] does not respect umask semantics.
+
 @section{Examples}
 
 Get input from the user then save it to a temporary file that will be only
