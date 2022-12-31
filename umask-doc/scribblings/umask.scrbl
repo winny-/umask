@@ -7,6 +7,8 @@
 @title{umask}
 @author{Winston Weinert}
 
+@hyperlink["https://unmaintained.tech/"]{@image{unmaintained.svg}}
+
 @defmodule[umask]
 
 Set the default permissions on a Unix-like operating system.  This allows one
